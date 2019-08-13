@@ -2,6 +2,7 @@ const express= require('express');
 const db = require('./data/dbConfig.js');
 const router= express.Router();
 
+//get all accounts
 router.get('/accounts', async(req, res)=>{
     try {
 const accounts= await db('accounts')
@@ -11,21 +12,18 @@ res.json(accounts);
 }
 })
 
-router.get('/accounts/:id', async (req, res)=>{
-    const {id} = req.params;
-    try {
-    const accounts = await db('accounts').where({ id });
+//get specified account
+router.get("/accounts/:id", (req, res) => {
+  db("accounts")
+    .where({
+      id: req.params.id
+    })
+    //takes first occurrence
+    .first()
+    .then(result => res.json(result))
+});
 
-    if (accounts.length) {
-      res.json(accounts);
-    } else {
-      res.status(404).json({ message: 'Could not find account with given id.' })
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to get account' });
-  }
-})
-
+//create new account
 router.post('/accounts', (req, res) =>
   db('accounts')
     .insert({
@@ -35,7 +33,7 @@ router.post('/accounts', (req, res) =>
     .then(result => res.json(result))
 );
 
-
+//update account
 router.put('/accounts/:id', (req, res) =>
   db('accounts')
     .where( {
@@ -50,7 +48,7 @@ router.put('/accounts/:id', (req, res) =>
     .then(result => res.json(result))
 );
 
-
+//delete account
 router.delete("/accounts/:id", (req, res) =>
   db("accounts")
     .delete()
