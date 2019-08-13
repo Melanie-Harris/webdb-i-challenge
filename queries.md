@@ -8,7 +8,7 @@ where PostalCode = 1010
 SELECT * FROM [Suppliers]
 where supplierId = 11
 
-## List first 10 orders ever places, descending by the order date
+## List first 10 orders ever placed, descending by the order date
 SELECT * FROM [Orders]
 order by orderdate desc
 limit 10
@@ -24,7 +24,7 @@ values('The Shire', 'Bilbo Baggins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle 
 ## Update Bilbo Baggins record so that the postal code changes to "11122"
 update Customers
 set PostalCode = '11122'
-where CustomerName = 'Bilbo Baggins'
+where CustomerId = '92'
 
 ## (Stretch) Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted
 
